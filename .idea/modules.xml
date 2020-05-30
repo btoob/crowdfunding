@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cd-bean/cd-bean.iml" filepath="$PROJECT_DIR$/cd-bean/cd-bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-commom/cd-commom.iml" filepath="$PROJECT_DIR$/cd-commom/cd-commom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-main/cd-main.iml" filepath="$PROJECT_DIR$/cd-main/cd-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-manager-api/cd-manager-api.iml" filepath="$PROJECT_DIR$/cd-manager-api/cd-manager-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-manager-impl/cd-manager-impl.iml" filepath="$PROJECT_DIR$/cd-manager-impl/cd-manager-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-parent/cd-parent.iml" filepath="$PROJECT_DIR$/cd-parent/cd-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-potal-api/cd-potal-api.iml" filepath="$PROJECT_DIR$/cd-potal-api/cd-potal-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cd-potal-impl/cd-potal-impl.iml" filepath="$PROJECT_DIR$/cd-potal-impl/cd-potal-impl.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cd-potal-impl" />
+        <module name="cd-manager-impl" />
+        <module name="cd-main" />
+        <module name="cd-bean" />
+        <module name="cd-potal-api" />
+        <module name="cd-commom" />
+        <module name="cd-manager-api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cd-bean" target="8" />
+      <module name="cd-commom" target="8" />
+      <module name="cd-main" target="8" />
+      <module name="cd-manager-api" target="8" />
+      <module name="cd-manager-impl" target="8" />
+      <module name="cd-parent" target="8" />
+      <module name="cd-potal-api" target="8" />
+      <module name="cd-potal-impl" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
