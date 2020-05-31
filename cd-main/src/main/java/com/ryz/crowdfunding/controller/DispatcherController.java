@@ -4,6 +4,7 @@ import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.manager.service.UserService;
 import com.ryz.crowdfunding.util.AjaxResult;
 import com.ryz.crowdfunding.util.Const;
+import com.ryz.crowdfunding.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +62,7 @@ public class DispatcherController {
         try {
             Map<String, Object> paramMap = new HashMap<String, Object>();
             paramMap.put("loginacct",loginacct);
-            paramMap.put("userpswd",userpswd);
+            paramMap.put("userpswd", MD5Util.digest(userpswd));
             paramMap.put("type", type);
 
             User user =  userService.queryUserlogin(paramMap);
