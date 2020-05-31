@@ -99,7 +99,9 @@
             },
             success: function (result) {   //{"success":true} 或 {"success":false, "message":"登录失败"}
                 if(result.success){
-                    alert("ok");
+                    // alert("ok");
+                    //跳转到主页面
+                    window.location.href = "main.htm"
                 }else{
                     alert("not ok");
                 }

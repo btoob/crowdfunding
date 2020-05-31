@@ -35,6 +35,14 @@ public class DispatcherController {
         return "main";
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+
+        //销毁session对象//或者清理session域
+        session.invalidate();
+        return "redirect:/index.htm";
+
+    }
 
     //登录功能的同步请求
     /**
