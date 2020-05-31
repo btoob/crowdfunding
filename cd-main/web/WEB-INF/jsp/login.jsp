@@ -75,6 +75,15 @@
         var fuserpswd = $("#fuserpswd");
         var ftype = $("#ftype");
 
+        //表单数据校验，要是用户没有输入用户名直接登录就不发送请求了
+        //对于表单数据而言不能用null进行判断，因为如果文本框什么都不输入，获取的是""
+        if($.trim(floginacct.val())==""){
+            alert("用户账号不能为空，请重新输入！");
+            floginacct.val("");
+            floginacct.focus();
+            return false;
+        }
+
         $.ajax({
             type: "POST",
             data: {
