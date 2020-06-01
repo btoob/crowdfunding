@@ -78,7 +78,7 @@ public class DispatcherController {
             result.setSuccess(true);
             //{"success":true}
         } catch (Exception e) {
-            result.setMessage("登录失败");
+            result.setMessage("账号或密码错误！登录失败");
             e.printStackTrace();
             result.setSuccess(false);
             //{"success":false, "message":"登录失败"}

@@ -67,6 +67,7 @@
 </div>
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script>
     function dologin() {
         // $("#loginForm").submit();
@@ -78,12 +79,18 @@
         //表单数据校验，要是用户没有输入用户名直接登录就不发送请求了
         //对于表单数据而言不能用null进行判断，因为如果文本框什么都不输入，获取的是""
         if($.trim(floginacct.val())==""){
-            alert("用户账号不能为空，请重新输入！");
-            floginacct.val("");
-            floginacct.focus();
+            // alert("用户账号不能为空，请重新输入！");
+
+            //使用弹层组件来完成提示消息
+            layer.msg("用户账号不能为空，请重新输入！", {time:1000, icon:5, shift:6}, function () {
+                floginacct.val("");
+                floginacct.focus();
+            });
+
             return false;
         }
 
+        var loadingIndex = -1;
         $.ajax({
             type: "POST",
             data: {
@@ -95,19 +102,23 @@
             url: "${APP_PATH}/doLogin.do",
             beforeSend: function () {
                 //一般做表单数据校验
+                loadingIndex = layer.msg('正在登录。。。请稍后。。', {icon: 16});
                 return true;
             },
             success: function (result) {   //{"success":true} 或 {"success":false, "message":"登录失败"}
+                // layer.close(loadingIndex);
                 if(result.success){
                     // alert("ok");
                     //跳转到主页面
                     window.location.href = "main.htm"
                 }else{
-                    alert("not ok");
+                    // alert("not ok");
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
                 }
             },
             error: function () {
-                alert("error");
+                layer.msg("登录失败！！！！！！", {time:0, icon:5, shift:6});
+                // alert("error");
             },
         })
 
