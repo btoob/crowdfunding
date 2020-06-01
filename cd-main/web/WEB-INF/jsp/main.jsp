@@ -65,7 +65,7 @@
                         <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span>
                         <ul style="margin-top:10px;display:none;">
                             <li style="height:30px;">
-                                <a href="user.html"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
+                                <a href="${APP_PATH}/user/list.do"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
                             </li>
                             <li style="height:30px;">
                                 <a href="role.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a>
@@ -152,7 +152,7 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
-<script type="${APP_PATH}/text/javascript">
+<script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function(){
             if ( $(this).find("ul") ) {
