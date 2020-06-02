@@ -142,10 +142,10 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <input id="queryText" class="form-control has-success" type="text" placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                        <button id="queryBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
                     <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
@@ -165,20 +165,20 @@
                             </thead>
                             <tbody>
 
-                            <c:forEach items="${page.datas}" var="user" varStatus="status">
-                                <tr>
-                                    <td>${status.count}</td>
-                                    <td><input type="checkbox"></td>
-                                    <td>${user.loginacct}</td>
-                                    <td>${user.username}</td>
-                                    <td>${user.email}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                        <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                        <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+<%--                            <c:forEach items="${page.datas}" var="user" varStatus="status">--%>
+<%--                                <tr>--%>
+<%--                                    <td>${status.count}</td>--%>
+<%--                                    <td><input type="checkbox"></td>--%>
+<%--                                    <td>${user.loginacct}</td>--%>
+<%--                                    <td>${user.username}</td>--%>
+<%--                                    <td>${user.email}</td>--%>
+<%--                                    <td>--%>
+<%--                                        <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>--%>
+<%--                                        <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>--%>
+<%--                                        <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
 
                             </tbody>
                             <tfoot>
@@ -186,35 +186,29 @@
                                 <td colspan="6" align="center">
                                     <ul class="pagination">
 
-                                        <c:if test="${page.pageNo==1}">
-                                            <li class="disabled"><a href="#">上！一页</a></li>
-                                        </c:if>
-                                        <c:if test="${page.pageNo!=1}">
-                                            <li><a href="#" onclick="pageChange(${page.pageNo-1})">上！一页</a></li>
-                                        </c:if>
-
-<%--                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>--%>
-<%--                                        <li><a href="#">2</a></li>--%>
-<%--                                        <li><a href="#">3</a></li>--%>
-<%--                                        <li><a href="#">4</a></li>--%>
-<%--                                        <li><a href="#">5</a></li>--%>
+<%--                                        <c:if test="${page.pageNo==1}">--%>
+<%--                                            <li class="disabled"><a href="#">上！一页</a></li>--%>
+<%--                                        </c:if>--%>
+<%--                                        <c:if test="${page.pageNo!=1}">--%>
+<%--                                            <li><a href="#" onclick="pageChange(${page.pageNo-1})">上！一页</a></li>--%>
+<%--                                        </c:if>--%>
 
 
-                                        <c:forEach begin="1" end="${page.totalNo}" var="num">
-                                        <li
-                                                <c:if test="${page.pageNo==num}">
-                                                    class="active"
-                                                </c:if>
-                                        ><a href="#" onclick="pageChange(${num})">${num} </a></li>
-                                        </c:forEach>
+<%--                                        <c:forEach begin="1" end="${page.totalNo}" var="num">--%>
+<%--                                        <li--%>
+<%--                                                <c:if test="${page.pageNo==num}">--%>
+<%--                                                    class="active"--%>
+<%--                                                </c:if>--%>
+<%--                                        ><a href="#" onclick="pageChange(${num})">${num} </a></li>--%>
+<%--                                        </c:forEach>--%>
 
 
-                                        <c:if test="${page.pageNo==page.totalNo}">
-                                            <li class="disabled"><a href="#">下！一页</a></li>
-                                        </c:if>
-                                        <c:if test="${page.pageNo!=page.totalNo}">
-                                            <li><a href="#" onclick="pageChange(${page.pageNo+1})">下！一页</a></li>
-                                        </c:if>
+<%--                                        <c:if test="${page.pageNo==page.totalNo}">--%>
+<%--                                            <li class="disabled"><a href="#">下！一页</a></li>--%>
+<%--                                        </c:if>--%>
+<%--                                        <c:if test="${page.pageNo!=page.totalNo}">--%>
+<%--                                            <li><a href="#" onclick="pageChange(${page.pageNo+1})">下！一页</a></li>--%>
+<%--                                        </c:if>--%>
 
                                     </ul>
                                 </td>
@@ -232,6 +226,7 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function(){
@@ -244,7 +239,10 @@
                 }
             }
         });
+        queryPageUser(1);
     });
+
+
     $("tbody .btn-success").click(function(){
         window.location.href = "assignRole.html";
     });
@@ -252,9 +250,93 @@
         window.location.href = "edit.html";
     })
     function pageChange(pageNo) {
-        window.location.href="${APP_PATH}/user/list.do?pageno="+pageNo;
+        <%--window.location.href="${APP_PATH}/user/list.do?pageno="+pageNo;--%>
+        queryPageUser(pageNo);
     }
-    
+
+    var jsonObj = {
+        "pageNo":1,
+        "pageSize":10
+    };
+
+    var loadingIndex = -1;
+    function queryPageUser(pageNo) {
+        jsonObj.pageNo=pageNo;
+        $.ajax({
+            type: "POST",
+            data: jsonObj,
+            url:"${APP_PATH}/user/list.do",
+            beforeSend:function () {
+                loadingIndex = layer.load(2, {time:10*1000});
+                return true;
+            },
+            success:function (result) {
+                layer.close(loadingIndex);
+                if(result.success){
+                    var page = result.page;
+                    var data = page.datas;
+                    var content = '';
+
+                    $.each(data, function (i, n) {
+                        content+='<tr>';
+                        content+='  <td>'+(i+1)+'</td>';
+                        content+='  <td><input type="checkbox"></td>';
+                        content+='  <td>'+n.loginacct+'</td>';
+                        content+='  <td>'+n.username+'</td>';
+                        content+='  <td>'+n.email+'</td>';
+                        content+='  <td>';
+                        content+='	  <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+                        content+='	  <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+                        content+='	  <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+                        content+='  </td>';
+                        content+='</tr>';
+                    })
+
+                    $("tbody").html(content);
+
+                    var contentBar = '';
+
+                    if(page.pageNo==1 ){
+                        contentBar+='<li class="disabled"><a href="#">上一页</a></li>';
+                    }else{
+                        contentBar+='<li><a href="#" onclick="pageChange('+(page.pageNo-1)+')">上一页</a></li>';
+                    }
+
+                    for(var i = 1 ; i<= page.totalNo ; i++ ){
+                        contentBar+='<li';
+                        if(page.pageNo==i){
+                            contentBar+=' class="active"';
+                        }
+                        contentBar+='><a href="#" onclick="pageChange('+i+')">'+i+'</a></li>';
+                    }
+
+                    if(page.pageNo==page.totalNo ){
+                        contentBar+='<li class="disabled"><a href="#">下一页</a></li>';
+                    }else{
+                        contentBar+='<li><a href="#" onclick="pageChange('+(page.pageNo+1)+')">下一页</a></li>';
+                    }
+
+                    $(".pagination").html(contentBar);
+
+                    // alert("需要进行局部刷新"+data);
+                }else{
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
+                }
+            },
+            error:function () {
+                layer.msg("加载数据失败！", {time:1000, icon:5, shift:6});
+            }
+        })
+    }
+
+    $("#queryBtn").click(function () {
+        var queryText = $("#queryText").val();
+        jsonObj.queryText = queryText;
+        queryPageUser(1);
+    });
+
+
+
 </script>
 </body>
 </html>

@@ -4,6 +4,7 @@ public class AjaxResult {
 
     private boolean success;
     private String message;
+    private Page page;
 
     public String getMessage() {
         return message;
@@ -19,5 +20,13 @@ public class AjaxResult {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
 }

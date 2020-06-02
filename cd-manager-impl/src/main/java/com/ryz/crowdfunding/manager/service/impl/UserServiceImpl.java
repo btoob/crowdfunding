@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.net.Inet4Address;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
     @Override
     public Page queryPage(Integer pageno, Integer pagesize) {
 
@@ -41,9 +43,24 @@ public class UserServiceImpl implements UserService {
 
         return page;
     }
+     **/
 
     @Override
     public int saveUser(User user) {
         return userMapper.insert(user);
+    }
+
+    @Override
+    public Page queryPage(Map<String, Object> paramMap) {
+        Page page = new Page((Integer) paramMap.get("pageNo"), (Integer) paramMap.get("pageSize"));
+
+        Integer startIndex = page.getStartIndex();
+        paramMap.put("startIndex",startIndex);
+        List<User> datas = userMapper.queryList(paramMap);
+        Integer totalSize = userMapper.queryCount(paramMap);
+        page.setDatas(datas);
+        page.setTotalSize(totalSize);
+
+        return page;
     }
 }
