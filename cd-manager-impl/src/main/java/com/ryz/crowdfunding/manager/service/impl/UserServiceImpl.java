@@ -4,12 +4,16 @@ import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.exception.LoginFailException;
 import com.ryz.crowdfunding.manager.dao.UserMapper;
 import com.ryz.crowdfunding.manager.service.UserService;
+import com.ryz.crowdfunding.util.Const;
+import com.ryz.crowdfunding.util.MD5Util;
 import com.ryz.crowdfunding.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.net.Inet4Address;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +51,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int saveUser(User user) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        String createTime = sdf.format(date);
+
+        user.setCreatetime(createTime);
+        user.setUserpswd(MD5Util.digest(Const.PASSWORD));
         return userMapper.insert(user);
     }
 
@@ -62,5 +73,33 @@ public class UserServiceImpl implements UserService {
         page.setTotalSize(totalSize);
 
         return page;
+    }
+
+    @Override
+    public User queryById(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public int deleteUser(Integer id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteBatchUser(Integer[] ids) {
+        int totalCount = 0 ;
+        for (Integer id : ids) {
+            int count = userMapper.deleteByPrimaryKey(id);
+            totalCount += count;
+        }
+        if(totalCount!=ids.length){
+            throw new RuntimeException("批量删除失败");
+        }
+        return totalCount;
     }
 }
