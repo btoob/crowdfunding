@@ -1,8 +1,11 @@
 package com.ryz.crowdfunding.manager.service;
 
+import com.ryz.crowdfunding.bean.Role;
 import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.util.Page;
+import com.ryz.crowdfunding.vo.Data;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -21,4 +24,14 @@ public interface UserService {
     int deleteUser(Integer id);
 
     int deleteBatchUser(Integer[] id);
+
+    int deleteBatchUserByVO(Data data);
+
+    List<Role> queryAllRole();
+
+    List<Integer> queryRoleByUserId(Integer id);
+
+    int deleteUserRoleRelationship(Integer userid, Data data);
+
+    int saveUserRoleRelationship(Integer userid, Data data);
 }

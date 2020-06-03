@@ -1,5 +1,6 @@
 package com.ryz.crowdfunding.manager.service.impl;
 
+import com.ryz.crowdfunding.bean.Role;
 import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.exception.LoginFailException;
 import com.ryz.crowdfunding.manager.dao.UserMapper;
@@ -7,6 +8,7 @@ import com.ryz.crowdfunding.manager.service.UserService;
 import com.ryz.crowdfunding.util.Const;
 import com.ryz.crowdfunding.util.MD5Util;
 import com.ryz.crowdfunding.util.Page;
+import com.ryz.crowdfunding.vo.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,5 +103,30 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("批量删除失败");
         }
         return totalCount;
+    }
+
+    @Override
+    public int deleteBatchUserByVO(Data data) {
+        return userMapper.deleteBatchUserByVo(data);
+    }
+
+    @Override
+    public List<Role> queryAllRole() {
+        return userMapper.queryAllRole();
+    }
+
+    @Override
+    public List<Integer> queryRoleByUserId(Integer id) {
+        return userMapper.queryRoleByUserId(id);
+    }
+
+    @Override
+    public int deleteUserRoleRelationship(Integer userid, Data data) {
+        return userMapper.deleteUserRoleRelationship(userid, data);
+    }
+
+    @Override
+    public int saveUserRoleRelationship(Integer userid, Data data) {
+        return userMapper.saveUserRoleRelationship(userid, data);
     }
 }

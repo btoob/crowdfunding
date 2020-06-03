@@ -102,7 +102,7 @@
             url: "${APP_PATH}/doLogin.do",
             beforeSend: function () {
                 //一般做表单数据校验
-                loadingIndex = layer.msg('正在登录。。。请稍后。。', {icon: 16});
+                // loadingIndex = layer.msg('正在登录。。。请稍后。。', {icon: 16});
                 return true;
             },
             success: function (result) {   //{"success":true} 或 {"success":false, "message":"登录失败"}

@@ -1,18 +1,22 @@
 package com.ryz.crowdfunding.manager.controller;
 
+import com.ryz.crowdfunding.bean.Role;
 import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.manager.service.UserService;
 import com.ryz.crowdfunding.util.AjaxResult;
 import com.ryz.crowdfunding.util.Page;
 import com.ryz.crowdfunding.util.StringUtil;
+import com.ryz.crowdfunding.vo.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.security.krb5.internal.PAData;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,6 +37,68 @@ public class UserController {
         return "user/add";
     }
 
+    //分配角色
+    @ResponseBody
+    @RequestMapping("/doAssignRole")
+    public Object doAssignRole(Integer userid, Data data){
+        AjaxResult result = new AjaxResult();
+        try {
+
+            userService.saveUserRoleRelationship(userid, data);
+            result.setSuccess(true);
+
+        } catch (Exception e) {
+            result.setSuccess(false);
+            e.printStackTrace();
+            result.setMessage("分配失败!");
+        }
+
+        return result;
+    }
+
+    //取消角色
+    @ResponseBody
+    @RequestMapping("/doUnAssignRole")
+    public Object doUnAssignRole(Integer userid, Data data){
+        AjaxResult result = new AjaxResult();
+        try {
+
+            userService.deleteUserRoleRelationship(userid, data);
+            result.setSuccess(true);
+
+        } catch (Exception e) {
+            result.setSuccess(false);
+            e.printStackTrace();
+            result.setMessage("取消角色失败!");
+        }
+
+        return result;
+    }
+
+    //显示分配页面的数据
+    @RequestMapping("/assignRole")
+    public String assignRole(Integer id, Map map){
+
+        List<Role> allRoleList = userService.queryAllRole();
+        List<Integer> roleIds = userService.queryRoleByUserId(id);
+
+        List<Role> leftRoleList = new ArrayList<>();
+        List<Role> rightRoleList = new ArrayList<>();
+
+        for (Role role : allRoleList) {
+            if(roleIds.contains(role.getId())){
+                rightRoleList.add(role);
+            }else {
+                leftRoleList.add(role);
+            }
+        }
+
+        map.put("leftRoleList", leftRoleList);
+        map.put("rightRoleList", rightRoleList);
+
+        return "user/assignRole";
+    }
+
     @RequestMapping("/toUpdate")
     public String toUpdate(Integer id, Map map){
         User user = userService.queryById(id);
@@ -41,7 +107,27 @@ public class UserController {
         return "user/update";
     }
 
-    //异步请求----批量删除管理员用户
+    //接收多条数据.
+    @ResponseBody
+    @RequestMapping("/doDeleteBatch")
+    public Object doDeleteBatch(Data data){
+        AjaxResult result = new AjaxResult();
+        try {
+
+            int count = userService.deleteBatchUserByVO(data);
+            result.setSuccess(count==data.getDatas().size());
+        } catch (Exception e) {
+            result.setSuccess(false);
+            e.printStackTrace();
+            result.setMessage("删除数据失败!");
+        }
+
+        return result;
+    }
+
+
+    //异步请求----批量删除管理员用户---//接收一个参数名带多个值.
+    /**
     @ResponseBody
     @RequestMapping("/doDeleteBatch")
     public Object doDeleteBatch(Integer[] id){
@@ -58,6 +144,7 @@ public class UserController {
 
         return result;
     }
+    **/
 
     //异步请求----修改管理员用户
     @ResponseBody
