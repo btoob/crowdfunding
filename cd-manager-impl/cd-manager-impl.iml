@@ -28,6 +28,7 @@
     <orderEntry type="module" module-name="cd-manager-api" />
     <orderEntry type="module" module-name="cd-bean" />
     <orderEntry type="module" module-name="cd-commom" />
+    <orderEntry type="module" module-name="cd-potal-api" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet.jsp:jsp-api:2.1.3-b06" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.glassfish:javax.servlet:3.0-b70" level="project" />

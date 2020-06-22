@@ -54,4 +54,10 @@
         <property name="maxUploadSize" value="2097152"/>
         <property name="resolveLazily" value="true"/>
     </bean>
+
+
+    <!--声明拦截器对象-->
+    <mvc:interceptors>
+        <bean class="com.ryz.crowdfunding.interceptor.LoginInterceptor"></bean>
+    </mvc:interceptors>
 </beans>

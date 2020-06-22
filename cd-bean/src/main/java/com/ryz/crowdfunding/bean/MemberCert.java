@@ -1,5 +1,5 @@
 package com.ryz.crowdfunding.bean;
-
+import org.springframework.web.multipart.MultipartFile;
 
 
 public class MemberCert {
@@ -11,7 +11,15 @@ public class MemberCert {
 
     private String iconpath;
 
+    public MultipartFile getFileImg() {
+        return fileImg;
+    }
 
+    public void setFileImg(MultipartFile fileImg) {
+        this.fileImg = fileImg;
+    }
+
+    private MultipartFile fileImg;
 
     public Integer getId() {
         return id;

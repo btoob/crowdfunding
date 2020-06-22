@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/main.css">
+    <link rel="stylesheet" href="${APP_PATH}/css/pagination.css">
     <style>
         .tree li {
             list-style-type: none;
@@ -38,24 +39,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li style="padding-top:8px;">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i>  ${sessionScope.user.username} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                            <li class="divider"></li>
-                            <li><a href="${APP_PATH}/logout.do"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li style="margin-left:10px;padding-top:8px;">
-                    <button type="button" class="btn btn-default btn-danger">
-                        <span class="glyphicon glyphicon-question-sign"></span> 帮助
-                    </button>
-                </li>
+                <%@include file="../common/top.jsp"%>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -123,7 +107,8 @@
                             <tfoot>
                             <tr >
                                 <td colspan="6" align="center">
-                                    <ul class="pagination">
+                                    <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+
 
 <%--                                        <c:if test="${page.pageNo==1}">--%>
 <%--                                            <li class="disabled"><a href="#">上！一页</a></li>--%>
@@ -149,7 +134,7 @@
 <%--                                            <li><a href="#" onclick="pageChange(${page.pageNo+1})">下！一页</a></li>--%>
 <%--                                        </c:if>--%>
 
-                                    </ul>
+
                                 </td>
                             </tr>
 
@@ -165,7 +150,9 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
+<script type="text/javascript" src="${APP_PATH }/script/menu.js"></script>
 <script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
+<script src="${APP_PATH}/jquery/pagination/jquery.pagination.js"></script>
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function(){
@@ -178,7 +165,8 @@
                 }
             }
         });
-        queryPageUser(1);
+        queryPageUser(0);
+        showMenu();
     });
 
 
@@ -199,8 +187,8 @@
     };
 
     var loadingIndex = -1;
-    function queryPageUser(pageNo) {
-        jsonObj.pageNo=pageNo;
+    function queryPageUser(pageIndex) {
+        jsonObj.pageNo=pageIndex+1;
         $.ajax({
             type: "POST",
             data: jsonObj,
@@ -233,6 +221,17 @@
 
                     $("tbody").html(content);
 
+                    // 创建分页
+                    $("#Pagination").pagination(page.totalSize, {
+                        num_edge_entries: 1, //边缘页数
+                        num_display_entries: 3, //主体页数
+                        callback: queryPageUser,
+                        items_per_page:10, //每页显示1项
+                        current_page:(page.pageNo-1),
+                        prev_text : "上一页",
+                        next_text : "下一页"
+                    });
+                    /**
                     var contentBar = '';
 
                     if(page.pageNo==1 ){
@@ -258,6 +257,7 @@
                     $(".pagination").html(contentBar);
 
                     // alert("需要进行局部刷新"+data);
+                     **/
                 }else{
                     layer.msg(result.message, {time:1000, icon:5, shift:6});
                 }
@@ -267,6 +267,8 @@
             }
         });
     };
+
+
 
     $("#queryBtn").click(function () {
         var queryText = $("#queryText").val();
@@ -312,6 +314,16 @@
             n.checked = checkedStatus;
         })
     });
+
+    //给后来元素增加事件.
+    $("tbody").delegate(":checkbox","click",function(){
+        if($("tbody tr td input:checked").length==0){
+            $("#allCheckbox").attr("checked",false);
+        }else{
+            $("#allCheckbox").attr("checked",true);
+        }
+    });
+
 
 
     $("#deleteBatchBtn").click(function(){

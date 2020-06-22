@@ -1,5 +1,6 @@
 package com.ryz.crowdfunding.manager.dao;
 
+import com.ryz.crowdfunding.bean.Permission;
 import com.ryz.crowdfunding.bean.Role;
 import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.vo.Data;
@@ -31,7 +32,6 @@ public interface UserMapper {
 
     List<User> queryList(Map<String, Object> paramMap);
 
-
     int deleteBatchUserByVo(Data data);
 
     List<Role> queryAllRole();
@@ -41,4 +41,6 @@ public interface UserMapper {
     int saveUserRoleRelationship(@Param("userid") Integer userid, @Param("data") Data data);
 
     int deleteUserRoleRelationship(@Param("userid") Integer userid, @Param("data") Data data);
+
+    List<Permission> queryPermissionByUserid(Integer id);
 }

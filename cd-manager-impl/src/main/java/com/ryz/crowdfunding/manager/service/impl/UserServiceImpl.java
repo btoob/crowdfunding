@@ -1,5 +1,6 @@
 package com.ryz.crowdfunding.manager.service.impl;
 
+import com.ryz.crowdfunding.bean.Permission;
 import com.ryz.crowdfunding.bean.Role;
 import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.exception.LoginFailException;
@@ -128,5 +129,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int saveUserRoleRelationship(Integer userid, Data data) {
         return userMapper.saveUserRoleRelationship(userid, data);
+    }
+
+    @Override
+    public List<Permission> queryPermissionByUserid(Integer id) {
+        return userMapper.queryPermissionByUserid(id);
     }
 }

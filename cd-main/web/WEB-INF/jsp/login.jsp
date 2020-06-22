@@ -37,22 +37,22 @@
 
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
         <div class="form-group has-success has-feedback">
-            <input type="text" class="form-control" id="floginacct" name="loginacct" value="superadmin" placeholder="请输入登录账号" autofocus>
+            <input type="text" class="form-control" id="floginacct" name="loginacct"  placeholder="请输入登录账号" autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-success has-feedback">
-            <input type="password" class="form-control" id="fuserpswd" name="userpswd" value="123" placeholder="请输入登录密码" style="margin-top:10px;">
+            <input type="password" class="form-control" id="fuserpswd" name="userpswd"  placeholder="请输入登录密码" style="margin-top:10px;">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="form-group has-success has-feedback">
             <select id="ftype" class="form-control" name="type" >
-                <option value="member">会员</option>
-                <option value="user" selected>管理</option>
+                <option value="member" selected>会员</option>
+                <option value="user" >管理</option>
             </select>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> 记住我
+                <input id="rememberme" type="checkbox" value="1"> 记住我2周
             </label>
             <br>
             <label>
@@ -91,12 +91,14 @@
         }
 
         var loadingIndex = -1;
+        var flag = $("#rememberme")[0].checked; //是否选中【记住我】
         $.ajax({
             type: "POST",
             data: {
                 "loginacct": floginacct.val(),
                 "userpswd": fuserpswd.val(),
-                "type": ftype.val()
+                "type": ftype.val(),
+                "rememberme":flag?"1":"0"
 
             },
             url: "${APP_PATH}/doLogin.do",
@@ -110,7 +112,17 @@
                 if(result.success){
                     // alert("ok");
                     //跳转到主页面
-                    window.location.href = "main.htm"
+                    <%--window.location.href="${APP_PATH}/member.htm";--%>
+
+                    if("member"==result.treeData){
+                        window.location.href="${APP_PATH}/member.htm";
+                    }else if("user"==result.treeData){
+                        //跳转主页面.
+                        window.location.href="${APP_PATH}/main.htm";
+                    }else{
+                        layer.msg("登录类型不合法!", {time:1000, icon:5, shift:6});
+                    }
+
                 }else{
                     // alert("not ok");
                     layer.msg(result.message, {time:1000, icon:5, shift:6});

@@ -2,12 +2,12 @@ package com.ryz.crowdfunding.util;
 
 import java.util.List;
 
-public class Page {
+public class Page<T> {
 
-    private Integer pageNo;
-    private Integer pageSize;
-    private Integer totalSize;
-    private Integer totalNo;
+    private Integer pageNo;  //第几页
+    private Integer pageSize;   //每页多少条数据
+    private Integer totalSize;  //总共多少条数据
+    private Integer totalNo;    //总共几页
     private List datas;
 
     public Page(Integer pageNo, Integer pageSize) {

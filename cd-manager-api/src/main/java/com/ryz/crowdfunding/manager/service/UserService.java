@@ -1,5 +1,6 @@
 package com.ryz.crowdfunding.manager.service;
 
+import com.ryz.crowdfunding.bean.Permission;
 import com.ryz.crowdfunding.bean.Role;
 import com.ryz.crowdfunding.bean.User;
 import com.ryz.crowdfunding.util.Page;
@@ -34,4 +35,6 @@ public interface UserService {
     int deleteUserRoleRelationship(Integer userid, Data data);
 
     int saveUserRoleRelationship(Integer userid, Data data);
+
+    List<Permission> queryPermissionByUserid(Integer id);
 }
